@@ -15,19 +15,13 @@ public class Viewer {
         frame = new JFrame();
         panel = new JPanel();
 
+        frame.getContentPane().setBackground(new Color(32, 32, 32));
         panel.setBackground(new Color(32, 32, 32));
-        panel.setSize(WIDTH, HEIGHT);
-
+        frame.getContentPane().setLayout(new FlowLayout());
         frame.getContentPane().add(panel);
-        frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle(title);
         frame.pack();
-
-        frame.setVisible(true);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setResizable(false);
-        frame.setLayout(new FlowLayout());
         frame.setVisible(true);
     }
 

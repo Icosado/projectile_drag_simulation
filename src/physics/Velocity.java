@@ -13,7 +13,7 @@ public class Velocity {
     }
 
     public Velocity(double speed, Angle angle) {
-
+        this(speed * Math.cos(angle.radians()), speed * Math.sin(angle.radians()));
     }
 
     public Velocity() {

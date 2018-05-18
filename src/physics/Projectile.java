@@ -15,4 +15,16 @@ public class Projectile {
         this.velocity = velocity;
         this.dragCoefficient = dragCoefficient;
     }
+
+    public Velocity velocity() {
+        return velocity;
+    }
+
+    public Mass mass() {
+        return mass;
+    }
+
+    public DragCoefficient dragCoefficient() {
+        return dragCoefficient;
+    }
 }
