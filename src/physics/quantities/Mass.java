@@ -1,4 +1,4 @@
-package physics;
+package physics.quantities;
 
 public class Mass {
     private final double mass;

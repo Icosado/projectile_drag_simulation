@@ -1,5 +1,8 @@
 package physics;
 
+import physics.quantities.Acceleration;
+import physics.quantities.Atmosphere;
+
 public class Environment {
     private Acceleration acceleration;
     private Atmosphere atmosphere;
@@ -15,5 +18,13 @@ public class Environment {
     public Environment() {
         this.acceleration = Acceleration.GRAVITY_SEA;
         this.atmosphere = Atmosphere.EARTH_SEA;
+    }
+
+    public Acceleration acceleration() {
+        return acceleration;
+    }
+
+    public Atmosphere atmosphere() {
+        return atmosphere;
     }
 }

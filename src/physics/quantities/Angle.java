@@ -1,4 +1,4 @@
-package physics;
+package physics.quantities;
 
 /**
  * In degrees, because we can always convert to radians later.

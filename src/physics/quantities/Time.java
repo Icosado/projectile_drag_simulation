@@ -1,4 +1,4 @@
-package physics;
+package physics.quantities;
 
 public class Time {
     private double seconds;

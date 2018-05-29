@@ -1,4 +1,4 @@
-package physics;
+package physics.quantities;
 
 
 import java.text.DecimalFormat;
