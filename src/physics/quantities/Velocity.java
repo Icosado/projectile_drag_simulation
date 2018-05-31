@@ -35,4 +35,18 @@ public class Velocity {
     public void setyVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
     }
+
+    public void updatePosition(Coordinate position, Time t) {
+        position.setX(
+                position.x() + t.value() * this.xVelocity()
+        );
+
+        position.setY(
+                position.y() + t.value() * this.yVelocity()
+        );
+    }
+
+    public String toString() {
+        return "X Velocity: " + xVelocity() + ". Y Velocity: " + yVelocity() + ".";
+    }
 }

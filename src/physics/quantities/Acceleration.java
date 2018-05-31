@@ -29,4 +29,8 @@ public class Acceleration extends Velocity {
                 v.yVelocity + this.yVelocity * seconds.value()
         );
     }
+
+    public String toString() {
+        return "X Acceleration: " + xVelocity() + ". Y Acceleration: " + yVelocity() + ".";
+    }
 }
