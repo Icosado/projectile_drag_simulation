@@ -1,5 +1,6 @@
 package graphics;
 
+import graphics.ui.Viewer;
 import physics.quantities.Coordinate;
 
 import java.awt.*;

@@ -13,7 +13,7 @@ public class DefaultProjectileAppearance implements Appearance {
     public static final int DEFAULT_WIDTH = 25;
 
     public DefaultProjectileAppearance() {
-        this.appearanceImage = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
+        this.appearanceImage = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g2D = appearanceImage.createGraphics();
         g2D.setColor(new Color(255, 255, 255));
         g2D.fill(new Ellipse2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
@@ -22,5 +22,9 @@ public class DefaultProjectileAppearance implements Appearance {
 
     public BufferedImage getAppearance() {
         return appearanceImage;
+    }
+
+    public String toString() {
+        return "Default Appearance";
     }
 }

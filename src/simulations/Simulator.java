@@ -1,23 +1,22 @@
 package simulations;
 
-import graphics.Viewer;
+import graphics.ui.ControlWindow;
+import graphics.ui.SimulationWindow;
 import physics.Environment;
 import physics.Projectile;
-import physics.quantities.Coordinate;
 import physics.quantities.Time;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
 
 public class Simulator {
     public static final int GLOBAL_TICK_MS = 50; // 33 ms tick rate. 30 frames per second
 
     public ActionListener updater;
-    public Viewer simulationViewer;
+    public SimulationWindow simulationViewer;
 
     public Simulator(Simulation sim) {
-        simulationViewer = new Viewer();
+        simulationViewer = new SimulationWindow();
         simulationViewer.addPaintable(sim.getProjectile());
 
         updater = new ActionListener() {
@@ -41,6 +40,7 @@ public class Simulator {
     public static void main(String[] args) {
         Simulation simulation = new Simulation(Environment.EARTH_SEA, Projectile.CIRCLE);
         Simulator simulator = new Simulator(simulation);
+        ControlWindow control = new ControlWindow();
         simulator.start();
     }
 }
