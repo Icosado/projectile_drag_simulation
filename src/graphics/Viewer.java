@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public class Viewer {
     private JFrame frame;
-    private CanvasPanel panel;
 
-    public static final int WIDTH = 1920;
-    public static final int HEIGHT = 1080;
+    public static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    public static final Font FONT = new Font("Monospaced", Font.PLAIN, HEIGHT / 32);
 
     public Viewer(String title) {
         frame = new JFrame();
-        panel = new CanvasPanel();
 
         frame.getContentPane().setBackground(new Color(32, 32, 32));
         frame.getContentPane().setLayout(new FlowLayout());
@@ -25,7 +25,7 @@ public class Viewer {
     }
 
     public Viewer() {
-        this("Projectile Motion & Drag!");
+
     }
 
     public void addPaintable(Paintable paintable) {
@@ -42,5 +42,9 @@ public class Viewer {
 
     public void repaint() {
         frame.repaint();
+    }
+
+    public void repaint(int x, int y, int width, int height) {
+        frame.repaint(x, y, width, height);
     }
 }
