@@ -1,6 +1,7 @@
 package graphics.ui;
 
 import graphics.appearances.Appearance;
+import physics.Projectile;
 import physics.quantities.CrossSection;
 import physics.quantities.DragCoefficient;
 import physics.quantities.Mass;
@@ -28,15 +29,23 @@ public class ControlWindow extends Viewer {
             DragCoefficient dc = new DragCoefficient(Double.valueOf(dragCoefficient.getText()));
             dragCoefficient.setText("");
 
-            CrossSection a = new CrossSection(Double.valueOf(area.getText()));
+            CrossSection cs = new CrossSection(Double.valueOf(area.getText()));
             area.setText("");
 
             String n = name.getText();
+            name.setText("");
+
+            Appearance a = (Appearance) appearances.getSelectedItem();
+
+            Projectile p = new Projectile(m, v, dc, cs, a, n);
+            projectiles.addElement(p);
         }
     };
 
     private JPanel panel;
-    private JList projectiles;
+
+    private DefaultListModel<Projectile> projectiles;
+    private JList<Projectile> projectileList;
 
     ArrayList<JLabel> labels;
     ArrayList<JTextField> textFields;
@@ -166,5 +175,14 @@ public class ControlWindow extends Viewer {
         panel.add(name);
 
         panel.add(appearanceLabel);
+    }
+
+    private void initializeListsAndAppearances() {
+        appearances = new JComboBox<>(Appearance.ALL_APPEARANCES);
+        projectiles = new DefaultListModel<>();
+        projectileList = new JList<>();
+        projectiles.addElement(Projectile.CIRCLE);
+        projectiles.addElement(Projectile.SQUARE);
+        projectiles.addElement(Projectile.COFFEE_FILTER);
     }
 }
