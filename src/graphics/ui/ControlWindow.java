@@ -8,7 +8,6 @@ import physics.quantities.Mass;
 import physics.quantities.Velocity;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,6 +51,7 @@ public class ControlWindow extends Viewer {
     ArrayList<JButton> buttons;
 
     private JButton createProjectileButton;
+    private JButton addProjectileButton;
 
     private JLabel panelLabel;
     private JLabel massLabel;
@@ -75,16 +75,20 @@ public class ControlWindow extends Viewer {
         super(title);
         frame.setLocation(Viewer.HEIGHT,0);
         panel = new JPanel();
-        panel.setLayout(new GridLayout(8, 2));
+        panel.setLayout(new GridLayout(15, 2));
         panel.setBackground(new Color(32, 32, 32));
 
         initializeLabels();
         initializeTextFields();
         initializeButtons();
+        initializeListsAndAppearances();
         addComponents();
 
-        frame.setPreferredSize(new Dimension(Viewer.WIDTH - Viewer.HEIGHT + 100, Viewer.HEIGHT));
-        frame.getContentPane().add(panel);
+        frame.setPreferredSize(new Dimension(Viewer.WIDTH - Viewer.HEIGHT + 110, Viewer.HEIGHT));
+        JScrollPane scrollPane = new JScrollPane(panel);
+
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        frame.getContentPane().add(scrollPane);
         frame.pack();
     }
 
@@ -142,8 +146,10 @@ public class ControlWindow extends Viewer {
     private void initializeButtons() {
         buttons = new ArrayList<>();
         createProjectileButton = new JButton("Create Projectile");
+        addProjectileButton = new JButton("Add Selected Projectile");
 
         buttons.add(createProjectileButton);
+        buttons.add(addProjectileButton);
 
         for (JButton b: buttons) {
             b.setBackground(new Color(128, 128, 128));
@@ -175,12 +181,26 @@ public class ControlWindow extends Viewer {
         panel.add(name);
 
         panel.add(appearanceLabel);
+        panel.add(appearances);
+
+        panel.add(projectileList);
+        panel.add(addProjectileButton);
+
+        panel.add(new JLabel("1"));
+        panel.add(new JLabel("2"));
+        panel.add(new JLabel("3"));
     }
 
     private void initializeListsAndAppearances() {
         appearances = new JComboBox<>(Appearance.ALL_APPEARANCES);
+        appearances.setBackground(new Color(64, 64, 64));
+        appearances.setForeground(new Color(255, 255, 255));
+        appearances.setFont(Viewer.FONT);
         projectiles = new DefaultListModel<>();
-        projectileList = new JList<>();
+        projectileList = new JList<>(projectiles);
+        projectileList.setBackground(new Color(64, 64, 64));
+        projectileList.setForeground(new Color(255, 255, 255));
+        projectileList.setFont(Viewer.FONT);
         projectiles.addElement(Projectile.CIRCLE);
         projectiles.addElement(Projectile.SQUARE);
         projectiles.addElement(Projectile.COFFEE_FILTER);

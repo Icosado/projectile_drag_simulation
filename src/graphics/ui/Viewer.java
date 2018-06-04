@@ -9,7 +9,7 @@ public class Viewer {
     public static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 100;
     public static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height - 100;
 
-    public static final Font FONT = new Font("Monospaced", Font.PLAIN, HEIGHT / 32);
+    public static final Font FONT = new Font("Monospaced", Font.PLAIN, HEIGHT / 40);
 
     public Viewer(String title) {
         frame = new JFrame();

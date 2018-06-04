@@ -2,6 +2,7 @@ package graphics.ui;
 
 import graphics.Paintable;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class SimulationWindow extends Viewer{
@@ -11,6 +12,7 @@ public class SimulationWindow extends Viewer{
         super(title);
         panel = new CanvasPanel();
         frame.getContentPane().add(panel);
+//        frame.setLocation(new Point(0,0));
         frame.pack();
     }
 
