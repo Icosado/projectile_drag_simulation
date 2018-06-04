@@ -1,4 +1,7 @@
-package graphics;
+package graphics.ui;
+
+import graphics.Paintable;
+import graphics.Scale;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +11,7 @@ public class CanvasPanel extends JPanel {
     private ArrayList<Paintable> graphicsItems;
     public CanvasPanel() {
         super();
-        this.setPreferredSize(new Dimension(Viewer.WIDTH, Viewer.HEIGHT));
+        this.setPreferredSize(new Dimension(Viewer.HEIGHT, Viewer.HEIGHT));
         this.setBackground(new Color(32, 32, 32));
         graphicsItems = new ArrayList<>();
         graphicsItems.add(new Scale(Scale.ORIGIN, Scale.GLOBAL_SCALE));

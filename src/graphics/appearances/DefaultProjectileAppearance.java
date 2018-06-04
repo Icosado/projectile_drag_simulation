@@ -23,4 +23,8 @@ public class DefaultProjectileAppearance implements Appearance {
     public BufferedImage getAppearance() {
         return appearanceImage;
     }
+
+    public String toString() {
+        return "Default Appearance";
+    }
 }

@@ -16,18 +16,53 @@ public class Projectile implements Paintable {
     private CrossSection area;
     private Coordinate position;
     private Appearance appearance;
+    private String name;
 
-    public static Projectile CIRCLE = new Projectile(new Mass(5.0), new Velocity(30.0, 100.0), new DragCoefficient(0.47), new CrossSection(1.0));
-    public static Projectile SQUARE = new Projectile(new Mass(1.0), new Velocity(30.0, 300.0), new DragCoefficient(1.05), new CrossSection(1.0));
-    public static Projectile COFFEE_FILTER = new Projectile(new Mass(0.01), new Velocity(40.0, 500.0), new DragCoefficient(1.60), new CrossSection(0.01));
-
-    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area) {
+    public static Projectile CIRCLE = new Projectile(
+            new Mass(5.0),
+            new Velocity(30.0, 100.0),
+            new DragCoefficient(0.47),
+            new CrossSection(1.0),
+            "Circle"
+    );
+    public static Projectile SQUARE = new Projectile(
+            new Mass(1.0),
+            new Velocity(30.0, 300.0),
+            new DragCoefficient(1.05),
+            new CrossSection(1.0),
+            "Square"
+    );
+    public static Projectile COFFEE_FILTER = new Projectile(
+            new Mass(0.01),
+            new Velocity(40.0, 500.0),
+            new DragCoefficient(1.60),
+            new CrossSection(0.01),
+            "Coffee Filter"
+    );
+    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area, Appearance appearance, String name, Coordinate initialPosition) {
         this.mass = mass;
         this.velocity = velocity;
         this.dragCoefficient = dragCoefficient;
         this.area = area;
-        this.position = new Coordinate();
-        this.appearance = new DefaultProjectileAppearance();
+        this.position = initialPosition;
+        this.appearance = appearance;
+        this.name = name;
+    }
+
+    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area, Appearance appearance, String name) {
+        this(mass, velocity, dragCoefficient, area, appearance, name, new Coordinate());
+    }
+
+    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area, Appearance appearance) {
+        this(mass, velocity, dragCoefficient, area, appearance, "default");
+    }
+
+    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area, String name) {
+        this(mass, velocity, dragCoefficient, area, new DefaultProjectileAppearance(), name);
+    }
+
+    public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area) {
+        this(mass, velocity, dragCoefficient, area, new DefaultProjectileAppearance());
     }
 
     public void setAppearance(Appearance a) {
@@ -64,5 +99,9 @@ public class Projectile implements Paintable {
         Coordinate drawPosition = position.paintingCoordinate();
         g.drawImage(buffered, (int) drawPosition.x(), (int) drawPosition.y(), null);
 //        System.out.println("X: " + (int) (drawPosition.x()) + ". Y: " + (int) (drawPosition.y()));
+    }
+
+    public String toString() {
+        return name;
     }
 }
