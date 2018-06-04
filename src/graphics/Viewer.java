@@ -8,8 +8,8 @@ public class Viewer {
     private JFrame frame;
     private CanvasPanel panel;
 
-    public static final int WIDTH = 1920;
-    public static final int HEIGHT = 1080;
+    public static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
+    public static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height / 2;
 
     public Viewer(String title) {
         frame = new JFrame();

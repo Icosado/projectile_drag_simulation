@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Scale implements Paintable {
     public static final int THICKNESS = 1;
-    public static final double GLOBAL_SCALE = 20;
+    public static final double GLOBAL_SCALE = 5;
     public static final Coordinate ORIGIN = new Coordinate(150, Viewer.HEIGHT - 150);
 
     private Coordinate origin;
@@ -21,7 +21,7 @@ public class Scale implements Paintable {
         int y = (int) origin.y();
 
         g.setColor(new Color(255, 255, 255));
-        g.setFont(new Font("Monospaced", Font.PLAIN, 24));
+        g.setFont(new Font("Monospaced", Font.PLAIN, Viewer.HEIGHT / 30));
 
         g.fillRect(x, 0, THICKNESS, Viewer.HEIGHT);
         g.fillRect(0, y, Viewer.WIDTH, THICKNESS);

@@ -62,11 +62,7 @@ public class Projectile implements Paintable {
     public void paintOnto(Graphics g) {
         BufferedImage buffered = appearance.getAppearance();
         Coordinate drawPosition = position.paintingCoordinate();
-//        System.out.println("painting: " + buffered);
         g.drawImage(buffered, (int) drawPosition.x(), (int) drawPosition.y(), null);
-
-//        g.drawImage(buffered, 500, 500, null);
-
 //        System.out.println("X: " + (int) (drawPosition.x()) + ". Y: " + (int) (drawPosition.y()));
     }
 }
