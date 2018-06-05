@@ -1,6 +1,7 @@
 package graphics.ui;
 
 import graphics.appearances.Appearance;
+import javafx.scene.layout.Border;
 import physics.Projectile;
 import physics.quantities.CrossSection;
 import physics.quantities.DragCoefficient;
@@ -18,33 +19,32 @@ public class ControlWindow extends Viewer {
     private ActionListener projectileCreationListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Mass m = new Mass(Double.valueOf(mass.getText()));
-            mass.setText("");
+            try {
+                Mass m = new Mass(Double.valueOf(mass.getText()));
 
-            Velocity v = new Velocity(Double.valueOf(speed.getText()), Double.valueOf(angle.getText()));
-            speed.setText("");
-            angle.setText("");
+                Velocity v = new Velocity(Double.valueOf(speed.getText()), Double.valueOf(angle.getText()));
 
-            DragCoefficient dc = new DragCoefficient(Double.valueOf(dragCoefficient.getText()));
-            dragCoefficient.setText("");
+                DragCoefficient dc = new DragCoefficient(Double.valueOf(dragCoefficient.getText()));
 
-            CrossSection cs = new CrossSection(Double.valueOf(area.getText()));
-            area.setText("");
+                CrossSection cs = new CrossSection(Double.valueOf(area.getText()));
 
-            String n = name.getText();
-            name.setText("");
+                String n = name.getText();
 
-            Appearance a = (Appearance) appearances.getSelectedItem();
+                Appearance a = (Appearance) appearances.getSelectedItem();
 
-            Projectile p = new Projectile(m, v, dc, cs, a, n);
-            projectiles.addElement(p);
+                Projectile p = new Projectile(m, v, dc, cs, a, n);
+                projectiles.addItem(p);
+                clearBoxes();
+            } catch (NumberFormatException nfe) {
+                System.err.println("That's not how you create a projectile!");
+                clearBoxes();
+            }
         }
     };
 
     private JPanel panel;
 
-    private DefaultListModel<Projectile> projectiles;
-    private JList<Projectile> projectileList;
+    private JComboBox<Projectile> projectiles;
 
     ArrayList<JLabel> labels;
     ArrayList<JTextField> textFields;
@@ -75,8 +75,6 @@ public class ControlWindow extends Viewer {
         super(title);
         frame.setLocation(Viewer.HEIGHT,0);
         panel = new JPanel();
-        GridBagLayout layout = new GridBagLayout();
-        layout.setConstraints(getMyConstraints());
         panel.setLayout(new GridLayout(15, 2));
         panel.setBackground(new Color(32, 32, 32));
 
@@ -145,23 +143,10 @@ public class ControlWindow extends Viewer {
         }
     }
 
-    private GridBagConstraints getMyConstraints() {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 10;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.ipadx = 7;
-        constraints.ipady = 7;
-        constraints.anchor = GridBagConstraints.CENTER;
-
-        return constraints;
-    }
-
     private void initializeButtons() {
         buttons = new ArrayList<>();
         createProjectileButton = new JButton("Create Projectile");
+        createProjectileButton.addActionListener(projectileCreationListener);
         addProjectileButton = new JButton("Add Selected Projectile");
 
         buttons.add(createProjectileButton);
@@ -199,12 +184,8 @@ public class ControlWindow extends Viewer {
         panel.add(appearanceLabel);
         panel.add(appearances);
 
-        panel.add(projectileList);
+        panel.add(projectiles);
         panel.add(addProjectileButton);
-
-        panel.add(new JLabel("1"));
-        panel.add(new JLabel("2"));
-        panel.add(new JLabel("3"));
     }
 
     private void initializeListsAndAppearances() {
@@ -213,19 +194,18 @@ public class ControlWindow extends Viewer {
         appearances.setForeground(new Color(255, 255, 255));
         appearances.setFont(Viewer.FONT);
 
-        projectiles = new DefaultListModel<>();
-        projectileList = new JList<>(projectiles);
+        projectiles = new JComboBox<>(Projectile.ALL_DEFAULT_PROJECTILES);
+        projectiles.setBackground(new Color(64, 64, 64));
+        projectiles.setForeground(new Color(255, 255, 255));
+        projectiles.setFont(Viewer.FONT);
+    }
 
-        projectileList.setBackground(new Color(64, 64, 64));
-        projectileList.setForeground(new Color(255, 255, 255));
-        projectileList.setFont(Viewer.FONT);
-        projectiles.addElement(Projectile.CIRCLE);
-        projectiles.addElement(Projectile.SQUARE);
-        projectiles.addElement(Projectile.COFFEE_FILTER);
-        projectiles.addElement(Projectile.COFFEE_FILTER);
-        projectiles.addElement(Projectile.COFFEE_FILTER);
-        projectiles.addElement(Projectile.COFFEE_FILTER);
-        projectiles.addElement(Projectile.COFFEE_FILTER);
-
+    private void clearBoxes() {
+        mass.setText("");
+        speed.setText("");
+        angle.setText("");
+        dragCoefficient.setText("");
+        area.setText("");
+        name.setText("");
     }
 }
