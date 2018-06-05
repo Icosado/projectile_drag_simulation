@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Scale implements Paintable {
     public static final int THICKNESS = 1;
-    public static final double GLOBAL_SCALE = 15;
+    public static final double GLOBAL_SCALE = 10 * Viewer.HEIGHT / 1000;
     public static final Coordinate ORIGIN = new Coordinate(150, Viewer.HEIGHT - 150);
 
     private Coordinate origin;

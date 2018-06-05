@@ -39,6 +39,9 @@ public class Projectile implements Paintable {
             new CrossSection(0.01),
             "Coffee Filter"
     );
+
+    public static Projectile[] ALL_DEFAULT_PROJECTILES = {CIRCLE, SQUARE, COFFEE_FILTER};
+
     public Projectile(Mass mass, Velocity velocity, DragCoefficient dragCoefficient, CrossSection area, Appearance appearance, String name, Coordinate initialPosition) {
         this.mass = mass;
         this.velocity = velocity;
