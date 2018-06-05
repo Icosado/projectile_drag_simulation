@@ -75,6 +75,8 @@ public class ControlWindow extends Viewer {
         super(title);
         frame.setLocation(Viewer.HEIGHT,0);
         panel = new JPanel();
+        GridBagLayout layout = new GridBagLayout();
+        layout.setConstraints(getMyConstraints());
         panel.setLayout(new GridLayout(15, 2));
         panel.setBackground(new Color(32, 32, 32));
 
@@ -143,6 +145,20 @@ public class ControlWindow extends Viewer {
         }
     }
 
+    private GridBagConstraints getMyConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        constraints.gridheight = 10;
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.ipadx = 7;
+        constraints.ipady = 7;
+        constraints.anchor = GridBagConstraints.CENTER;
+
+        return constraints;
+    }
+
     private void initializeButtons() {
         buttons = new ArrayList<>();
         createProjectileButton = new JButton("Create Projectile");
@@ -196,13 +212,20 @@ public class ControlWindow extends Viewer {
         appearances.setBackground(new Color(64, 64, 64));
         appearances.setForeground(new Color(255, 255, 255));
         appearances.setFont(Viewer.FONT);
+
         projectiles = new DefaultListModel<>();
         projectileList = new JList<>(projectiles);
+
         projectileList.setBackground(new Color(64, 64, 64));
         projectileList.setForeground(new Color(255, 255, 255));
         projectileList.setFont(Viewer.FONT);
         projectiles.addElement(Projectile.CIRCLE);
         projectiles.addElement(Projectile.SQUARE);
         projectiles.addElement(Projectile.COFFEE_FILTER);
+        projectiles.addElement(Projectile.COFFEE_FILTER);
+        projectiles.addElement(Projectile.COFFEE_FILTER);
+        projectiles.addElement(Projectile.COFFEE_FILTER);
+        projectiles.addElement(Projectile.COFFEE_FILTER);
+
     }
 }
