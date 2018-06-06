@@ -20,4 +20,8 @@ public class TimeCounter implements Paintable {
     public void updateTime() {
         time.advanceTime(Simulator.timePerTick());
     }
+
+    public void resetTime() {
+        time = new Time();
+    }
 }

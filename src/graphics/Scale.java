@@ -9,9 +9,9 @@ public class Scale implements Paintable {
     public static final int THICKNESS = 1;
 
     public static final Coordinate ORIGIN = new Coordinate(150, Viewer.HEIGHT - 150);
-    public static int increment = 15;
-    public static double GLOBAL_SCALE = increment * Viewer.HEIGHT / 1000;
-    public static double SCALE = increment;
+    public static int INCREMENT = 15;
+//    public static double GLOBAL_SCALE = INCREMENT * Viewer.HEIGHT / 1000;
+    public static double SCALE = INCREMENT;
 
     private Coordinate origin;
     private double scale;
@@ -31,7 +31,7 @@ public class Scale implements Paintable {
         g.fillRect(x, 0, THICKNESS, Viewer.HEIGHT);
         g.fillRect(0, y, Viewer.WIDTH, THICKNESS);
 
-        for (int i = increment; i < Viewer.WIDTH; i += increment) {
+        for (int i = INCREMENT; i < Viewer.WIDTH; i += INCREMENT) {
             int displacement = (int) (i * scale);
             g.fillRect((int) (origin.x() - scale), (int) (origin.y() - displacement), (int) (2 * scale + THICKNESS), THICKNESS);
             g.drawString(Integer.toString(i) + "m", (int) (origin.x() - 60), (int) (origin.y() - displacement));

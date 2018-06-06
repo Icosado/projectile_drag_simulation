@@ -56,6 +56,8 @@ public class ControlWindow extends Viewer {
         public void actionPerformed(ActionEvent e) {
             simulator.simulation.clearProjectiles();
             simulator.simulationViewer.clearProjectiles();
+            simulator.simulation.timeCounter.resetTime();
+            simulator.stop();
             ProjectileInfo.Y_COUNT = Viewer.HALF_FONT.getSize() * 2;
         }
     };
@@ -74,7 +76,23 @@ public class ControlWindow extends Viewer {
     private ActionListener setScaleListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            try {
+                if (Double.valueOf(scale.getText()) > 0) {
+                    Scale.SCALE = Double.valueOf(scale.getText());
+                } else {
+                    System.err.println("Illegal value for scale.");
+                }
+                if (Integer.valueOf(increment.getText()) > 0) {
+                    Scale.INCREMENT = Integer.valueOf(increment.getText());
+                } else {
+                    System.err.println("Illegal value for increment.");
+                }
+                scale.setText("10");
+                increment.setText("10");
+            } catch (NumberFormatException nfe) {
+                System.err.println("Invalid scale.");
+                System.err.println("Did you use a valid double for Scale and an integer for Increment?");
+            }
         }
     };
 
@@ -213,6 +231,8 @@ public class ControlWindow extends Viewer {
         startSimulationButton.addActionListener(startSimulationListener);
         stopSimulationButton = new JButton("Stop Simulation");
         stopSimulationButton.addActionListener(stopSimulationListener);
+        setScaleButton = new JButton("Set Scale");
+        setScaleButton.addActionListener(setScaleListener);
 
         buttons.add(createProjectileButton);
         buttons.add(addProjectileButton);

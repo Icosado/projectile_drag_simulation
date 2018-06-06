@@ -16,7 +16,7 @@ public class CanvasPanel extends JPanel {
         this.setPreferredSize(new Dimension(Viewer.HEIGHT, Viewer.HEIGHT));
         this.setBackground(new Color(32, 32, 32));
         graphicsItems = new ArrayList<>();
-        graphicsItems.add(new Scale(Scale.ORIGIN, Scale.GLOBAL_SCALE));
+        graphicsItems.add(new Scale(Scale.ORIGIN, Scale.GLOBAL_SCALE()));
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

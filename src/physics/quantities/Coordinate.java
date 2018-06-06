@@ -32,7 +32,7 @@ public class Coordinate {
     }
 
     public Coordinate paintingCoordinate() {
-        Coordinate newCoordinate = new Coordinate(x * Scale.GLOBAL_SCALE + Scale.ORIGIN.x(), -y * Scale.GLOBAL_SCALE + Scale.ORIGIN.y());
+        Coordinate newCoordinate = new Coordinate(x * Scale.GLOBAL_SCALE() + Scale.ORIGIN.x(), -y * Scale.GLOBAL_SCALE() + Scale.ORIGIN.y());
         return newCoordinate;
     }
 

@@ -36,5 +36,6 @@ public class SimulationWindow extends Viewer{
 
     public void clearProjectiles() {
         panel.clearProjectiles();
+        repaint();
     }
 }
