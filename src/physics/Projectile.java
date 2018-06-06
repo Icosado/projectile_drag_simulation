@@ -2,6 +2,7 @@ package physics;
 
 import graphics.Paintable;
 import graphics.appearances.Appearance;
+import graphics.appearances.CircleAppearance;
 import graphics.appearances.DefaultProjectileAppearance;
 import physics.quantities.*;
 import simulations.Simulator;
@@ -166,6 +167,7 @@ public class Projectile implements Paintable {
                 new Velocity(30.0, 100.0),
                 new DragCoefficient(0.47),
                 new CrossSection(1.0),
+                new CircleAppearance(),
                 "Circle"
         );
     }
@@ -175,6 +177,7 @@ public class Projectile implements Paintable {
                 new Velocity(30.0, 100.0),
                 new DragCoefficient(1.05),
                 new CrossSection(1.0),
+                new DefaultProjectileAppearance(),
                 "Square"
         );
     }
@@ -184,6 +187,7 @@ public class Projectile implements Paintable {
                 new Velocity(0.5, 0.5),
                 new DragCoefficient(1.60),
                 new CrossSection(0.01),
+                new DefaultProjectileAppearance(),
                 "Coffee Filter"
         );
     }

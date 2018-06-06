@@ -1,6 +1,7 @@
 package graphics.ui;
 
 import graphics.ProjectileInfo;
+import graphics.Scale;
 import graphics.appearances.Appearance;
 import physics.Environment;
 import physics.Projectile;
@@ -26,15 +27,10 @@ public class ControlWindow extends Viewer {
         public void actionPerformed(ActionEvent e) {
             try {
                 Mass m = new Mass(Double.valueOf(mass.getText()));
-
                 Velocity v = new Velocity(Double.valueOf(speed.getText()), Double.valueOf(angle.getText()));
-
                 DragCoefficient dc = new DragCoefficient(Double.valueOf(dragCoefficient.getText()));
-
                 CrossSection cs = new CrossSection(Double.valueOf(area.getText()));
-
                 String n = name.getText();
-
                 Appearance a = (Appearance) appearances.getSelectedItem();
 
                 Projectile p = new Projectile(m, v, dc, cs, a, n);
@@ -75,20 +71,27 @@ public class ControlWindow extends Viewer {
             simulator.stop();
         }
     };
+    private ActionListener setScaleListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    };
 
     private JPanel panel;
 
     private JComboBox<Projectile> projectiles;
 
-    ArrayList<JLabel> labels;
-    ArrayList<JTextField> textFields;
-    ArrayList<JButton> buttons;
+    private ArrayList<JLabel> labels;
+    private ArrayList<JTextField> textFields;
+    private ArrayList<JButton> buttons;
 
     private JButton createProjectileButton;
     private JButton addProjectileButton;
     private JButton startSimulationButton;
     private JButton stopSimulationButton;
     private JButton clearProjectilesButton;
+    private JButton setScaleButton;
 
     private JLabel panelLabel;
     private JLabel massLabel;
@@ -98,6 +101,10 @@ public class ControlWindow extends Viewer {
     private JLabel areaLabel;
     private JLabel nameLabel;
     private JLabel appearanceLabel;
+    private JLabel xLabel;
+    private JLabel yLabel;
+    private JLabel scaleLabel;
+    private JLabel incrementLabel;
 
     private JTextField mass;
     private JTextField speed;
@@ -105,6 +112,10 @@ public class ControlWindow extends Viewer {
     private JTextField dragCoefficient;
     private JTextField area;
     private JTextField name;
+    private JTextField x;
+    private JTextField y;
+    private JTextField scale;
+    private JTextField increment;
 
     private JComboBox<Appearance> appearances;
 

@@ -17,6 +17,10 @@ public class Time {
         return seconds;
     }
 
+    public void advanceTime(Time amount) {
+        this.seconds += amount.seconds;
+    }
+
     public String toString() {
         return Viewer.FLOAT_4.format(seconds) + " s";
     }

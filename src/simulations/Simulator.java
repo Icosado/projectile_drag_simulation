@@ -22,6 +22,7 @@ public class Simulator {
     public Simulator(Simulation sim) {
         simulationViewer = new SimulationWindow();
         this.simulation = sim;
+        simulationViewer.addPaintable(simulation.timeCounter);
 
         for (Paintable paintable: sim.getProjectiles()) {
             simulationViewer.addPaintable(paintable);

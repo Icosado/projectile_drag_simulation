@@ -1,6 +1,7 @@
 package simulations;
 
 import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
+import graphics.TimeCounter;
 import physics.forces.DragForce;
 import physics.Environment;
 import physics.forces.GravityForce;
@@ -19,7 +20,10 @@ public class Simulation {
     private DragForce dragForce;
     private GravityForce gravityForce;
 
+    public TimeCounter timeCounter;
+
     public Simulation() {
+        timeCounter = new TimeCounter();
         projectiles = new ArrayList<>();
     }
 
@@ -57,6 +61,7 @@ public class Simulation {
     }
 
     public void tickSimulation() {
+        timeCounter.updateTime();
         for (Projectile projectile: projectiles) {
             projectile.updatePosition();
             dragForce.tickOnProjectile(projectile);
