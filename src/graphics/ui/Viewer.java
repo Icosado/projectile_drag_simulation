@@ -2,14 +2,17 @@ package graphics.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class Viewer {
     protected JFrame frame;
 
     public static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 100;
     public static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height - 100;
+    public static final DecimalFormat FLOAT_4 = new DecimalFormat(".####");
 
     public static final Font FONT = new Font("Monospaced", Font.PLAIN, HEIGHT / 40);
+    public static final Font HALF_FONT = new Font("Monospaced", Font.PLAIN, HEIGHT / 80);
 
     public Viewer(String title) {
         frame = new JFrame();

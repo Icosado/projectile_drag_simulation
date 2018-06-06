@@ -17,6 +17,7 @@ public class Scale implements Paintable {
         this.scale = scale;
     }
 
+    @Override
     public void paintOnto(Graphics g) {
         int x = (int) origin.x();
         int y = (int) origin.y();
@@ -34,5 +35,10 @@ public class Scale implements Paintable {
             g.fillRect((int) (origin.x() + displacement), (int) (origin.y() - scale), THICKNESS, (int) (2 * scale + THICKNESS));
             g.drawString(Integer.toString(i) + "m", (int) (origin.x() + displacement ), (int) (origin.y() + 36));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Scale of scale " + scale + " and origin at " + origin;
     }
 }

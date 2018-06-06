@@ -12,7 +12,6 @@ public class SimulationWindow extends Viewer{
         super(title);
         panel = new CanvasPanel();
         frame.getContentPane().add(panel);
-//        frame.setLocation(new Point(0,0));
         frame.pack();
     }
 
@@ -22,14 +21,20 @@ public class SimulationWindow extends Viewer{
 
     public void addPaintable(Paintable paintable) {
         panel.addPaintable(paintable);
+        repaint();
     }
 
     public void addPaintable(Paintable... paintables) {
         panel.addPaintable(paintables);
+        repaint();
     }
 
     public void addPaintable(ArrayList<Paintable> paintables) {
         panel.addPaintable(paintables);
+        repaint();
     }
 
+    public void clearProjectiles() {
+        panel.clearProjectiles();
+    }
 }

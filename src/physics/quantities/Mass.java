@@ -1,5 +1,7 @@
 package physics.quantities;
 
+import graphics.ui.Viewer;
+
 public class Mass {
     private final double mass;
 
@@ -9,5 +11,9 @@ public class Mass {
 
     public double mass() {
         return mass;
+    }
+
+    public String toString() {
+        return Viewer.FLOAT_4.format(mass) + " kg";
     }
 }

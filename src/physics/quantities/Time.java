@@ -1,5 +1,7 @@
 package physics.quantities;
 
+import graphics.ui.Viewer;
+
 public class Time {
     private double seconds;
 
@@ -13,5 +15,9 @@ public class Time {
 
     public double value() {
         return seconds;
+    }
+
+    public String toString() {
+        return Viewer.FLOAT_4.format(seconds) + " s";
     }
 }

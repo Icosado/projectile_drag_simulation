@@ -1,12 +1,15 @@
 package graphics.ui;
 
+import graphics.ProjectileInfo;
 import graphics.appearances.Appearance;
-import javafx.scene.layout.Border;
+import physics.Environment;
 import physics.Projectile;
 import physics.quantities.CrossSection;
 import physics.quantities.DragCoefficient;
 import physics.quantities.Mass;
 import physics.quantities.Velocity;
+import simulations.Simulation;
+import simulations.Simulator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ControlWindow extends Viewer {
+
+    private Simulator simulator;
 
     private ActionListener projectileCreationListener = new ActionListener() {
         @Override
@@ -41,6 +46,35 @@ public class ControlWindow extends Viewer {
             }
         }
     };
+    private ActionListener projectileAdderListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Projectile projectile = ((Projectile) projectiles.getSelectedItem()).copy();
+            System.out.println("Copied projectile: " + projectile);
+            simulator.simulation.addProjectile(projectile);
+            simulator.simulationViewer.addPaintable(projectile);
+        }
+    };
+    private ActionListener clearProjectilesListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            simulator.simulation.clearProjectiles();
+            simulator.simulationViewer.clearProjectiles();
+            ProjectileInfo.Y_COUNT = Viewer.HALF_FONT.getSize() * 2;
+        }
+    };
+    private ActionListener startSimulationListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            simulator.start();
+        }
+    };
+    private ActionListener stopSimulationListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            simulator.stop();
+        }
+    };
 
     private JPanel panel;
 
@@ -52,6 +86,9 @@ public class ControlWindow extends Viewer {
 
     private JButton createProjectileButton;
     private JButton addProjectileButton;
+    private JButton startSimulationButton;
+    private JButton stopSimulationButton;
+    private JButton clearProjectilesButton;
 
     private JLabel panelLabel;
     private JLabel massLabel;
@@ -73,16 +110,16 @@ public class ControlWindow extends Viewer {
 
     public ControlWindow(String title) {
         super(title);
+
+        Simulation simulation = new Simulation();
+        simulator = new Simulator(simulation);
+
         frame.setLocation(Viewer.HEIGHT,0);
         panel = new JPanel();
         panel.setLayout(new GridLayout(15, 2));
         panel.setBackground(new Color(32, 32, 32));
 
-        initializeLabels();
-        initializeTextFields();
-        initializeButtons();
-        initializeListsAndAppearances();
-        addComponents();
+        initializeComponents();
 
         frame.setPreferredSize(new Dimension(Viewer.WIDTH - Viewer.HEIGHT + 110, Viewer.HEIGHT));
         JScrollPane scrollPane = new JScrollPane(panel);
@@ -94,6 +131,18 @@ public class ControlWindow extends Viewer {
 
     public ControlWindow() {
         this("Args");
+    }
+
+    public void setSimulationEnvironment(Environment environment) {
+        this.simulator.simulation.setEnvironment(environment);
+    }
+
+    private void initializeComponents() {
+        initializeLabels();
+        initializeTextFields();
+        initializeButtons();
+        initializeListsAndAppearances();
+        addComponents();
     }
 
     private void initializeLabels() {
@@ -119,7 +168,6 @@ public class ControlWindow extends Viewer {
             l.setFont(Viewer.FONT);
         }
     }
-
     private void initializeTextFields() {
         textFields = new ArrayList<>();
         mass = new JTextField();
@@ -142,15 +190,24 @@ public class ControlWindow extends Viewer {
             t.setFont(Viewer.FONT);
         }
     }
-
     private void initializeButtons() {
         buttons = new ArrayList<>();
         createProjectileButton = new JButton("Create Projectile");
         createProjectileButton.addActionListener(projectileCreationListener);
         addProjectileButton = new JButton("Add Selected Projectile");
+        addProjectileButton.addActionListener(projectileAdderListener);
+        clearProjectilesButton = new JButton("Clear All Projectiles");
+        clearProjectilesButton.addActionListener(clearProjectilesListener);
+        startSimulationButton = new JButton("Start Simulation");
+        startSimulationButton.addActionListener(startSimulationListener);
+        stopSimulationButton = new JButton("Stop Simulation");
+        stopSimulationButton.addActionListener(stopSimulationListener);
 
         buttons.add(createProjectileButton);
         buttons.add(addProjectileButton);
+        buttons.add(clearProjectilesButton);
+        buttons.add(startSimulationButton);
+        buttons.add(stopSimulationButton);
 
         for (JButton b: buttons) {
             b.setBackground(new Color(128, 128, 128));
@@ -158,7 +215,17 @@ public class ControlWindow extends Viewer {
             b.setFont(Viewer.FONT);
         }
     }
+    private void initializeListsAndAppearances() {
+        appearances = new JComboBox<>(Appearance.ALL_APPEARANCES);
+        appearances.setBackground(new Color(64, 64, 64));
+        appearances.setForeground(new Color(255, 255, 255));
+        appearances.setFont(Viewer.FONT);
 
+        projectiles = new JComboBox<>(Projectile.ALL_DEFAULT_PROJECTILES);
+        projectiles.setBackground(new Color(64, 64, 64));
+        projectiles.setForeground(new Color(255, 255, 255));
+        projectiles.setFont(Viewer.FONT);
+    }
     private void addComponents() {
         panel.add(panelLabel);
         panel.add(createProjectileButton);
@@ -186,20 +253,12 @@ public class ControlWindow extends Viewer {
 
         panel.add(projectiles);
         panel.add(addProjectileButton);
+
+        panel.add(startSimulationButton);
+        panel.add(stopSimulationButton);
+
+        panel.add(clearProjectilesButton);
     }
-
-    private void initializeListsAndAppearances() {
-        appearances = new JComboBox<>(Appearance.ALL_APPEARANCES);
-        appearances.setBackground(new Color(64, 64, 64));
-        appearances.setForeground(new Color(255, 255, 255));
-        appearances.setFont(Viewer.FONT);
-
-        projectiles = new JComboBox<>(Projectile.ALL_DEFAULT_PROJECTILES);
-        projectiles.setBackground(new Color(64, 64, 64));
-        projectiles.setForeground(new Color(255, 255, 255));
-        projectiles.setFont(Viewer.FONT);
-    }
-
     private void clearBoxes() {
         mass.setText("");
         speed.setText("");

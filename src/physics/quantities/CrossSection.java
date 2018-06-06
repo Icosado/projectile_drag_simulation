@@ -1,5 +1,7 @@
 package physics.quantities;
 
+import graphics.ui.Viewer;
+
 /**
  * Area is in m^2.
  */
@@ -16,5 +18,9 @@ public class CrossSection {
 
     public double area() {
         return area;
+    }
+
+    public String toString() {
+        return Viewer.FLOAT_4.format(area) + " m";
     }
 }

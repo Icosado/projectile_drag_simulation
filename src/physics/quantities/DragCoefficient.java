@@ -1,6 +1,8 @@
 package physics.quantities;
 
 
+import graphics.ui.Viewer;
+
 import java.text.DecimalFormat;
 
 public class DragCoefficient {
@@ -15,9 +17,7 @@ public class DragCoefficient {
     }
 
     public String toString() {
-        String s = "Drag Coefficient: ";
-        DecimalFormat df = new DecimalFormat(".####");
-        s += df.format(this.dragCoefficient);
+        String s = Viewer.FLOAT_4.format(this.dragCoefficient);
         return s;
     }
 }

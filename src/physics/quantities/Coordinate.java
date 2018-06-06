@@ -1,6 +1,7 @@
 package physics.quantities;
 
 import graphics.Scale;
+import graphics.ui.Viewer;
 
 public class Coordinate {
     private double x;
@@ -33,5 +34,9 @@ public class Coordinate {
     public Coordinate paintingCoordinate() {
         Coordinate newCoordinate = new Coordinate(x * Scale.GLOBAL_SCALE + Scale.ORIGIN.x(), -y * Scale.GLOBAL_SCALE + Scale.ORIGIN.y());
         return newCoordinate;
+    }
+
+    public String toString() {
+        return "(" + Viewer.FLOAT_4.format(x()) + ", " + Viewer.FLOAT_4.format(y()) + ")";
     }
 }

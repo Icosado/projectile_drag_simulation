@@ -1,5 +1,7 @@
 package physics.quantities;
 
+import graphics.ui.Viewer;
+
 /**
  * Components.
  */
@@ -47,6 +49,6 @@ public class Velocity {
     }
 
     public String toString() {
-        return "X Velocity: " + xVelocity() + ". Y Velocity: " + yVelocity() + ".";
+        return "X: " + Viewer.FLOAT_4.format(xVelocity()) + ". Y: " + Viewer.FLOAT_4.format(yVelocity()) + ".";
     }
 }

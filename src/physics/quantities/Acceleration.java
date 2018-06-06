@@ -1,5 +1,7 @@
 package physics.quantities;
 
+import graphics.ui.Viewer;
+
 public class Acceleration extends Velocity {
 
     public static Acceleration GRAVITY_SEA = new Acceleration(0, -9.81);
@@ -31,6 +33,6 @@ public class Acceleration extends Velocity {
     }
 
     public String toString() {
-        return "X Acceleration: " + xVelocity() + ". Y Acceleration: " + yVelocity() + ".";
+        return "X: " + Viewer.FLOAT_4.format(xVelocity()) + ". Y: " + Viewer.FLOAT_4.format(yVelocity()) + ".";
     }
 }
