@@ -5,10 +5,7 @@ import graphics.Scale;
 import graphics.appearances.Appearance;
 import physics.Environment;
 import physics.Projectile;
-import physics.quantities.CrossSection;
-import physics.quantities.DragCoefficient;
-import physics.quantities.Mass;
-import physics.quantities.Velocity;
+import physics.quantities.*;
 import simulations.Simulation;
 import simulations.Simulator;
 
@@ -26,6 +23,7 @@ public class ControlWindow extends Viewer {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                Coordinate c = new Coordinate(Double.valueOf(x.getText()), Double.valueOf(y.getText()));
                 Mass m = new Mass(Double.valueOf(mass.getText()));
                 Velocity v = new Velocity(Double.valueOf(speed.getText()), Double.valueOf(angle.getText()));
                 DragCoefficient dc = new DragCoefficient(Double.valueOf(dragCoefficient.getText()));
@@ -33,7 +31,7 @@ public class ControlWindow extends Viewer {
                 String n = name.getText();
                 Appearance a = (Appearance) appearances.getSelectedItem();
 
-                Projectile p = new Projectile(m, v, dc, cs, a, n);
+                Projectile p = new Projectile(m, v, dc, cs, a, n, c);
                 projectiles.addItem(p);
                 clearBoxes();
             } catch (NumberFormatException nfe) {
@@ -87,8 +85,9 @@ public class ControlWindow extends Viewer {
                 } else {
                     System.err.println("Illegal value for increment.");
                 }
-                scale.setText("10");
-                increment.setText("10");
+                simulator.simulationViewer.repaint();
+//                scale.setText("10");
+//                increment.setText("10");
             } catch (NumberFormatException nfe) {
                 System.err.println("Invalid scale.");
                 System.err.println("Did you use a valid double for Scale and an integer for Increment?");
@@ -176,14 +175,20 @@ public class ControlWindow extends Viewer {
 
     private void initializeLabels() {
         labels = new ArrayList<>();
+
         panelLabel = new JLabel("new Projectile creator");
-        massLabel = new JLabel("mass: ");
-        speedLabel = new JLabel("speed: ");
+        massLabel = new JLabel("mass (kg): ");
+        speedLabel = new JLabel("speed (m/s): ");
         angleLabel = new JLabel("angle (degrees): ");
         dragLabel = new JLabel("drag coefficient: ");
-        areaLabel = new JLabel("surface area: ");
+        areaLabel = new JLabel("surface area (m^2): ");
         nameLabel = new JLabel("name: ");
         appearanceLabel = new JLabel("appearance: ");
+        xLabel = new JLabel("initial x (m): ");
+        yLabel = new JLabel("initial y (m): ");
+        scaleLabel = new JLabel("scale: ");
+        incrementLabel = new JLabel("increment: ");
+
         labels.add(panelLabel);
         labels.add(massLabel);
         labels.add(speedLabel);
@@ -192,6 +197,11 @@ public class ControlWindow extends Viewer {
         labels.add(areaLabel);
         labels.add(nameLabel);
         labels.add(appearanceLabel);
+        labels.add(xLabel);
+        labels.add(yLabel);
+        labels.add(scaleLabel);
+        labels.add(incrementLabel);
+
         for (JLabel l: labels) {
             l.setForeground(new Color(255, 255,255));
             l.setFont(Viewer.FONT);
@@ -199,12 +209,18 @@ public class ControlWindow extends Viewer {
     }
     private void initializeTextFields() {
         textFields = new ArrayList<>();
+
         mass = new JTextField();
         speed = new JTextField();
         angle = new JTextField();
         dragCoefficient = new JTextField();
         area = new JTextField();
         name = new JTextField();
+        x = new JTextField();
+        y = new JTextField();
+        scale = new JTextField();
+        increment = new JTextField();
+
 
         textFields.add(mass);
         textFields.add(speed);
@@ -212,6 +228,10 @@ public class ControlWindow extends Viewer {
         textFields.add(dragCoefficient);
         textFields.add(area);
         textFields.add(name);
+        textFields.add(x);
+        textFields.add(y);
+        textFields.add(scale);
+        textFields.add(increment);
 
         for (JTextField t : textFields) {
             t.setBackground(new Color(0, 0, 0));
@@ -239,6 +259,7 @@ public class ControlWindow extends Viewer {
         buttons.add(clearProjectilesButton);
         buttons.add(startSimulationButton);
         buttons.add(stopSimulationButton);
+        buttons.add(setScaleButton);
 
         for (JButton b: buttons) {
             b.setBackground(new Color(128, 128, 128));
@@ -261,41 +282,49 @@ public class ControlWindow extends Viewer {
         panel.add(panelLabel);
         panel.add(createProjectileButton);
 
-        panel.add(massLabel);
-        panel.add(mass);
+        panel.add(xLabel);
+        panel.add(x);
+        panel.add(yLabel);
+        panel.add(y);
 
         panel.add(speedLabel);
         panel.add(speed);
-
         panel.add(angleLabel);
         panel.add(angle);
 
+        panel.add(massLabel);
+        panel.add(mass);
         panel.add(dragLabel);
         panel.add(dragCoefficient);
-
         panel.add(areaLabel);
         panel.add(area);
 
         panel.add(nameLabel);
         panel.add(name);
-
         panel.add(appearanceLabel);
         panel.add(appearances);
 
         panel.add(projectiles);
         panel.add(addProjectileButton);
-
         panel.add(startSimulationButton);
         panel.add(stopSimulationButton);
 
         panel.add(clearProjectilesButton);
+        panel.add(setScaleButton);
+        panel.add(incrementLabel);
+        panel.add(increment);
+
+        panel.add(scaleLabel);
+        panel.add(scale);
     }
     private void clearBoxes() {
-        mass.setText("");
-        speed.setText("");
-        angle.setText("");
-        dragCoefficient.setText("");
-        area.setText("");
+//        x.setText("");
+//        y.setText("");
+//        mass.setText("");
+//        speed.setText("");
+//        angle.setText("");
+//        dragCoefficient.setText("");
+//        area.setText("");
         name.setText("");
     }
 }

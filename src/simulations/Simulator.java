@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Simulator {
-    public static final int GLOBAL_TICK_MS = 33; // 33 ms tick rate. 30 frames per second
+    public static final int GLOBAL_TICK_MS = 10; // 33 ms tick rate. 30 frames per second
 
     public ActionListener updater;
     public SimulationWindow simulationViewer;

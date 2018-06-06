@@ -45,6 +45,8 @@ public class DragForce implements Force {
                 combinedCoefficient *
                 velocity.yVelocity() * velocity.yVelocity();
 
+//        System.out.println("Y acceleration: " + yAcceleration);
+
         if (sameSign(yAcceleration, velocity.yVelocity())) {
             yAcceleration = -yAcceleration;
         }

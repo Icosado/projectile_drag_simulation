@@ -1,9 +1,11 @@
 package physics;
 
 import graphics.Paintable;
+import graphics.Scale;
 import graphics.appearances.Appearance;
 import graphics.appearances.CircleAppearance;
 import graphics.appearances.DefaultProjectileAppearance;
+import graphics.appearances.SquareAppearance;
 import physics.quantities.*;
 import simulations.Simulator;
 
@@ -107,7 +109,11 @@ public class Projectile implements Paintable {
     public void paintOnto(Graphics g) {
         BufferedImage buffered = appearance.getAppearance();
         Coordinate drawPosition = position.paintingCoordinate();
-        g.drawImage(buffered, (int) drawPosition.x(), (int) drawPosition.y(), null);
+        g.drawImage(buffered,
+                (int) drawPosition.x() - buffered.getWidth() / 2, (int) drawPosition.y() - buffered.getHeight() / 2, // image position
+//                (int) (buffered.getWidth() * Scale.GLOBAL_SCALE()), (int) (buffered.getHeight() * Scale.GLOBAL_SCALE()), // image scaling
+                null
+        );
 //        System.out.println("X: " + (int) (drawPosition.x()) + ". Y: " + (int) (drawPosition.y()));
     }
 
@@ -177,7 +183,7 @@ public class Projectile implements Paintable {
                 new Velocity(30.0, 100.0),
                 new DragCoefficient(1.05),
                 new CrossSection(1.0),
-                new DefaultProjectileAppearance(),
+                new SquareAppearance(),
                 "Square"
         );
     }

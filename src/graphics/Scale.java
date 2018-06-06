@@ -11,13 +11,15 @@ public class Scale implements Paintable {
     public static final Coordinate ORIGIN = new Coordinate(150, Viewer.HEIGHT - 150);
     public static int INCREMENT = 15;
 //    public static double GLOBAL_SCALE = INCREMENT * Viewer.HEIGHT / 1000;
-    public static double SCALE = INCREMENT;
+    public static double SCALE = 15;
+    public static double TICK_LENGTH = Viewer.HEIGHT / 150;
 
     private Coordinate origin;
-    private double scale;
+//    private double scale;
+
     public Scale(Coordinate origin, double scale) {
         this.origin = origin;
-        this.scale = scale;
+//        this.scale = scale;
     }
 
     @Override
@@ -32,20 +34,20 @@ public class Scale implements Paintable {
         g.fillRect(0, y, Viewer.WIDTH, THICKNESS);
 
         for (int i = INCREMENT; i < Viewer.WIDTH; i += INCREMENT) {
-            int displacement = (int) (i * scale);
-            g.fillRect((int) (origin.x() - scale), (int) (origin.y() - displacement), (int) (2 * scale + THICKNESS), THICKNESS);
-            g.drawString(Integer.toString(i) + "m", (int) (origin.x() - 60), (int) (origin.y() - displacement));
-            g.fillRect((int) (origin.x() + displacement), (int) (origin.y() - scale), THICKNESS, (int) (2 * scale + THICKNESS));
+            int displacement = (int) (i * SCALE);
+            g.fillRect((int) (origin.x() - TICK_LENGTH), (int) (origin.y() - displacement), (int) (2 * TICK_LENGTH + THICKNESS), THICKNESS);
+            g.drawString(Integer.toString(i) + "m", (int) (origin.x() - 75), (int) (origin.y() - displacement));
+            g.fillRect((int) (origin.x() + displacement), (int) (origin.y() - TICK_LENGTH), THICKNESS, (int) (2 * TICK_LENGTH + THICKNESS));
             g.drawString(Integer.toString(i) + "m", (int) (origin.x() + displacement ), (int) (origin.y() + 36));
         }
     }
 
     public static double GLOBAL_SCALE() {
-        return SCALE * Viewer.HEIGHT / 1000;
+        return SCALE;
     }
 
     @Override
     public String toString() {
-        return "Scale of scale " + scale + " and origin at " + origin;
+        return "Scale of scale " + SCALE + " and origin at " + origin;
     }
 }
